@@ -18,13 +18,15 @@ log_dir_undu = data_path_undu / 'logs'
 sim_dir_undu = data_path_undu / 'simulations'
 sweep_dir_undu = data_path_undu / 'parameter_sweeps'
 
-log_dir_actu_rexa = data_path_undu / 'logs'
-sim_dir_actu_rexa = data_path_undu / 'simulations'
-sweep_dir_actu_rexa = data_path_undu / 'parameter_sweeps'
+log_dir_actu_rexa = data_path_actu_rexa/ 'logs'
+sim_dir_actu_rexa = data_path_actu_rexa / 'simulations'
+sweep_dir_actu_rexa = data_path_actu_rexa / 'parameter_sweeps'
 
 for Dir in [log_dir_undu, sim_dir_undu, sweep_dir_undu, 
     log_dir_actu_rexa, sim_dir_actu_rexa, sweep_dir_actu_rexa]:
 
     assert Dir.is_dir()
+
+
 
 
