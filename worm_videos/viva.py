@@ -9,7 +9,7 @@ import pickle
 from data_dirs import *
 from video_dirs import video_dir
 
-def make_video_actuation_relaxation():
+def make_video_actuation_relaxation_():
 
     assert sim_dir_actu_rexa.is_dir()
         
@@ -25,10 +25,19 @@ def make_video_actuation_relaxation():
         video_path, 
         add_trajectory = False, 
         draw_e3 = False, 
-        n_arrows = 0.2)
+        n_arrows = 0.025)
       
     return      
-          
+
+def make_video_actuation_relaxation_sweep()
+
+    h5_filename = 'raw_data_a=0.034_b=0.01_c_min=0.5_c_max=1.5_c_step=0.25_lam_min=0.5_lam_max=2.0_lam_step=0.25_N=750_dt=0.01_T=5.0.h5'    
+
+
+
+
+
+
 if __name__ == '__main__':
     
     make_video_actuation_relaxation()
