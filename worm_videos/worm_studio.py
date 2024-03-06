@@ -54,7 +54,7 @@ class WormStudio():
         self.N = self.X.shape[1] # number of points along the centreline
         
         dt = FS.t[1] - FS.t[0] 
-        self.fps = 1.0 / dt
+        self.fps = 1.0 // dt
         self.t = FS.t
         
         self.lengths = self._comp_worm_length_from_centreline()
@@ -219,17 +219,16 @@ class WormStudio():
             azim_offset, 
             revolution_rate)
             
-        # Initialise ffmpeg process
         output_args = {
             'pix_fmt': 'yuv444p',
             'vcodec': 'libx264',
             'r': self.fps,
             #'metadata:g:1': 'artist=Leeds Wormlab',
             'metadata:g:2': f'year={time.strftime("%Y")}'}
-        
+         
         process = (
             ffmpeg
-                .input('pipe:', format='rawvideo', pix_fmt='rgb24', s=f'{fig_width}x{fig_height}')
+                .input('pipe:', format='rawvideo', pix_fmt='rgb24', s=f'{fig_width}x{fig_height}', r=self.fps)
                 .output(str(output_path) + '.mp4', **output_args)
                 .overwrite_output()
                 .run_async(pipe_stdin=True)
