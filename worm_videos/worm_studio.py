@@ -24,7 +24,7 @@ from wormlab3d.postures.plot_utils import FrameArtistMLab
 #from wormlab3d.trajectories.cache import get_trajectory
 from wormlab3d.trajectories.util import smooth_trajectory
 
-from .frame_sequence import FrameSequenceNumpy
+#from .frame_sequence import FrameSequenceNumpy
 
 # Off-screen rendering
 mlab.options.offscreen = True
@@ -42,7 +42,7 @@ class WormStudio():
                                            
     def __init__(
             self, 
-            FS: FrameSequenceNumpy):
+            FS): #FrameSequenceNumpy):
         
         self.X = np.swapaxes(FS.r, 1, 2)
         self.D1 = np.swapaxes(FS.d1, 1, 2)
