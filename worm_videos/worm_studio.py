@@ -44,18 +44,18 @@ class WormStudio():
             self, 
             FS: FrameSequenceNumpy):
         
-        self.X = np.swapaxes(FS.x, 1, 2)
-        self.D1 = np.swapaxes(FS.e1, 1, 2)
-        self.D2 = np.swapaxes(FS.e2, 1, 2)
-        self.D3 = np.swapaxes(FS.e3, 1, 2)
-        self.K = np.swapaxes(FS.Omega, 1, 2)
+        self.X = np.swapaxes(FS.r, 1, 2)
+        self.D1 = np.swapaxes(FS.d1, 1, 2)
+        self.D2 = np.swapaxes(FS.d2, 1, 2)
+        self.D3 = np.swapaxes(FS.d3, 1, 2)
+        self.K = np.swapaxes(FS.k, 1, 2)
 
         self.n = self.X.shape[0] # number of time steps
         self.N = self.X.shape[1] # number of points along the centreline
         
-        dt = FS.times[1] - FS.times[0] 
+        dt = FS.t[1] - FS.t[0] 
         self.fps = 1.0 / dt
-        self.t = FS.times
+        self.t = FS.t
         
         self.lengths = self._comp_worm_length_from_centreline()
         
