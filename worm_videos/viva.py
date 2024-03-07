@@ -57,7 +57,6 @@ def make_video_actuation_relaxation_sweep():
     
     h5, PG = load_data(sweep_dir, log_dir, h5_filename) 
 
-
     c_arr = PG.c_from_k('lam')
     lam_arr = PG.v_from_k('lam')
     
