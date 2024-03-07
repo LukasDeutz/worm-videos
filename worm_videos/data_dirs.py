@@ -44,9 +44,9 @@ def get_storage_dir(experiment_type):
     
     assert storage_dir_exp.isdir()
                                                                                  
-    log_dir = storage_dir / 'logs'
-    sim_dir = storage_dir / 'simulations'
-    sweep_dir= storage_dir / 'parameter_sweeps'
+    log_dir = storage_dir_exp / 'logs'
+    sim_dir = storage_dir_exp / 'simulations'
+    sweep_dir= storage_dir_exp / 'parameter_sweeps'
     
     return log_dir, sim_dir, sweep_dir
 
