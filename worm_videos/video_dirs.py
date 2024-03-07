@@ -6,8 +6,12 @@ Created on 6 Mar 2024
 
 from pathlib import Path
 
-video_dir = Path('../video')
-video_dir.mkdir(parents=True, exist_ok=True)
+video_storage = Path('../video')
+video_storage.mkdir(parents=True, exist_ok=True)
+
+
+
+
 
 
 
