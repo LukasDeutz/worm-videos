@@ -53,12 +53,12 @@ def make_video_actuation_relaxation_sweep():
 
     h5_filename = Path('raw_data_a=0.034_b=0.01_c_min=0.5_c_max=1.5_c_step=0.25_lam_min=0.5_lam_max=2.0_lam_step=0.25_N=750_dt=0.01_T=5.0.h5')    
 
-    log_dir, _, sweep_dir  = get_storage_dir('actuation_relaxation')[2]
+    log_dir, _, sweep_dir  = get_storage_dir('actuation_relaxation')
     
     h5, PG = load_data(sweep_dir, log_dir, h5_filename) 
 
-    c_arr = PG.c_from_k('lam')
-    lam_arr = PG.v_from_k('lam')
+    c0_arr = PG.c_from_k('c')
+    lam0_arr = PG.v_from_k('lam')
     
     t = h5['t'][:] 
     shape = h5['FS']['r'].shape
@@ -66,8 +66,8 @@ def make_video_actuation_relaxation_sweep():
     video_dir = video_dir / 'actuation_relaxation' / h5_filename.stem
     video_dir.mkdir(parent=True, exist_ok = True)
     
-    for i, c in enumerate(c_arr):
-        for j, lam in enumerate(lam_arr):
+    for i, c0 in enumerate(c0_arr):
+        for j, lam0 in enumerate(lam0_arr):
             
             k = np.ravel_multi_index((i,j), shape)
             
@@ -90,11 +90,57 @@ def make_video_actuation_relaxation_sweep():
             studio = WormStudio(FS)
 
             studio.generate_clip(
-                video_dir / f'c={c}_lam={lam}', 
+                video_dir / f'c0={c0}_lam0={lam0}', 
                 add_trajectory = False, 
                 draw_e3 = False, 
                 n_arrows = 0.025)
+
+def make_video_undulation_sweep():
     
+    h5_filename = Path('raw_data_a=0.034_b=0.01_c_min=0.5_c_max=1.5_c_step=0.25_lam_min=0.5_lam_max=2.0_lam_step=0.25_N=750_dt=0.01_T=5.0.h5')    
+
+    log_dir, _, sweep_dir  = get_storage_dir('undulation')
+    
+    h5, PG = load_data(sweep_dir, log_dir, h5_filename) 
+
+    c0_arr = PG.c_from_k('c')
+    lam0_arr = PG.v_from_k('lam')
+    
+    t = h5['t'][:] 
+    shape = h5['FS']['r'].shape
+
+    video_dir = video_dir / 'undulation' / h5_filename.stem
+    video_dir.mkdir(parent=True, exist_ok = True)
+    
+    for i, c0 in enumerate(c0_arr):
+        for j, lam0 in enumerate(lam0_arr):
+            
+            k = np.ravel_multi_index((i,j), shape)
+            
+            r = h5['FS']['r'][k, :]
+            d1 = h5['FS']['d1'][k, :]
+            d2 = h5['FS']['d2'][k, :]
+            d3 = h5['FS']['d3'][k, :]
+            k = h5['FS']['k'][k, :]
+        
+            FS = SimpleNamespace(**{
+                'r': r, 
+                'd1': d1,
+                'd2': d2,
+                'd3': d3,
+                'k': k,
+                't': t
+                }
+            )
+
+            studio = WormStudio(FS)
+
+            studio.generate_clip(
+                video_dir / f'c0={c0}_lam0={lam0}', 
+                add_trajectory = False, 
+                draw_e3 = False, 
+                n_arrows = 0.025)
+
 if __name__ == '__main__':
     
     make_video_actuation_relaxation_sweep()
