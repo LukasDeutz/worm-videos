@@ -97,7 +97,7 @@ def make_video_actuation_relaxation_sweep():
 
 def make_video_undulation_sweep():
     
-    h5_filename = Path('raw_data_a=0.034_b=0.01_c_min=0.5_c_max=1.5_c_step=0.25_lam_min=0.5_lam_max=2.0_lam_step=0.25_N=750_dt=0.01_T=5.0.h5')    
+    h5_filename = Path('raw_data_a=0.034_b=0.01_c_min=0.5_c_max=2.0_c_step=0.25_lam_min=0.5_lam_max=2.0_lam_step=0.25_N=750_dt=0.01_T=10.0.h5')    
 
     log_dir, _, sweep_dir  = get_storage_dir('undulation')
     
