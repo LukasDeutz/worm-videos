@@ -233,9 +233,9 @@ class WormStudio():
             #'metadata:g:1': 'artist=Leeds Wormlab',
             'metadata:g:2': f'year={time.strftime("%Y")}'}
          
-                .input('pipe:', format='rawvideo', pix_fmt='rgb24', s=f'{fig_width}x{fig_height}', r=self.fps)
         process = (
             ffmpeg
+                .input('pipe:', format='rawvideo', pix_fmt='rgb24', s=f'{fig_width}x{fig_height}', r=self.fps)
                 .output(str(output_path) + '.mp4', **output_args)
                 .overwrite_output()
                 .run_async(pipe_stdin=True)
