@@ -42,7 +42,9 @@ class WormStudio():
                                            
     def __init__(
             self, 
-            FS): #FrameSequenceNumpy):
+            FS,
+            f = None): 
+        
         
         self.X = np.swapaxes(FS.r, 1, 2)
         self.D1 = np.swapaxes(FS.d1, 1, 2)
@@ -54,7 +56,12 @@ class WormStudio():
         self.N = self.X.shape[1] # number of points along the centreline
         
         dt = FS.t[1] - FS.t[0] 
+        
+        if f is not None:
+            dt = dt / f
+
         self.fps = 1.0 // dt
+
         self.t = FS.t
         
         self.lengths = self._comp_worm_length_from_centreline()
@@ -226,9 +233,9 @@ class WormStudio():
             #'metadata:g:1': 'artist=Leeds Wormlab',
             'metadata:g:2': f'year={time.strftime("%Y")}'}
          
+                .input('pipe:', format='rawvideo', pix_fmt='rgb24', s=f'{fig_width}x{fig_height}', r=self.fps)
         process = (
             ffmpeg
-                .input('pipe:', format='rawvideo', pix_fmt='rgb24', s=f'{fig_width}x{fig_height}', r=self.fps)
                 .output(str(output_path) + '.mp4', **output_args)
                 .overwrite_output()
                 .run_async(pipe_stdin=True)
