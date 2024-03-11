@@ -270,7 +270,7 @@ def showcase_dynamical_regimes():
 
 def showcase_frequency_adpatation():
     
-    h5_filename = Path('raw_data_a_min=-2_a_max=3_a_step=0.2_b_min=-3_b_max=0_b_step=0.2_A=4.0_lam=1.0_T=5.0_N=750_dt=0.001')
+    h5_filename = Path('raw_data_a_arr=[6.0300e-02 9.5494e+02 1.1370e+02]_b_arr=[0.009 0.009 0.001]_A=2.94_lam=1.46_T=5.0_N=750_dt=0.001.h5')
     
     h5, PG = load_data(h5_filename) 
 
@@ -282,7 +282,6 @@ def showcase_frequency_adpatation():
     # Access grid parameters
     a_arr = PG.v_from_key('a')
     b_arr = PG.v_from_key('b')
-
                 
     #===============================================================================
     # Choose operating points
@@ -290,9 +289,7 @@ def showcase_frequency_adpatation():
     
     N = int(1e2)
 
-    # Viscosity range                                
-    mu_arr = np.logspace(-3, 1.2, N)
-    
+    # Viscosity range                                    
     mu0, mu1 = 10**(-3.0), 10**(+1.2)
      
     f_sig_fit = fang_yen_fit()[1]
@@ -300,7 +297,6 @@ def showcase_frequency_adpatation():
     # With frequency modulation from experimental data
     f0 = f_sig_fit(np.log10(mu0))
     f1 = f_sig_fit(np.log10(mu1))
-    
                                         
     # Geometric parameter
     L0 = 1130 * 1e-6
@@ -315,10 +311,10 @@ def showcase_frequency_adpatation():
     a0 = mu0 * ct * L0 **4 / B * f0
     b0 = xi * f0
 
-    a1 = mu_arr[-1] * ct * L0 **4 / B * f0
+    a1 = mu1 * ct * L0 **4 / B * f0
     b1 = xi * f0
     
-    a2 = mu_arr[-1] * ct * L0 **4 / B * f1
+    a2 = mu1 * ct * L0 **4 / B * f1
     b2 = xi * f1
                 
     video_dir = video_dir / 'undulation' / 'frequency_adaptation'
